@@ -7,8 +7,8 @@
 //
 
 #import "Quiz6MasterViewController.h"
-
 #import "Quiz6DetailViewController.h"
+#import "Task.h"
 
 @interface Quiz6MasterViewController () {
     NSMutableArray *_objects;
@@ -43,9 +43,19 @@
     if (!_objects) {
         _objects = [[NSMutableArray alloc] init];
     }
-    [_objects insertObject:[NSDate date] atIndex:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    Task *newTask = [[Task alloc] init];
+    [_objects addObject:newTask];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    Quiz6DetailViewController *detailView = [storyboard instantiateViewControllerWithIdentifier:@"Quiz6DetailViewController"];
+    [detailView setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    detailView.detailItem = newTask;
+    detailView.dismissBlock = ^ {
+        [[self tableView] reloadData];
+    };
+    
+    [self presentViewController:detailView animated:YES completion:nil];
 }
 
 #pragma mark - Table View
@@ -64,8 +74,20 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
-    NSDate *object = _objects[indexPath.row];
+    Task *object = _objects[indexPath.row];
     cell.textLabel.text = [object description];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterLongStyle];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%.0f)",
+     [formatter stringFromDate:object.dueDate], object.urgency];
+    
+    // Sets text color based on urgency
+    if ((object.urgency + .5) < 9)
+        [cell.textLabel setTextColor:[UIColor greenColor]];
+    else
+        [cell.textLabel setTextColor:[UIColor redColor]];
+    
     return cell;
 }
 
@@ -75,13 +97,24 @@
     return YES;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Task *task = [_objects objectAtIndex:[indexPath row]];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    Quiz6DetailViewController *detailView = [storyboard instantiateViewControllerWithIdentifier:@"Quiz6DetailViewController"];
+    [detailView setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    detailView.detailItem = task;
+    detailView.dismissBlock = ^ { [[self tableView] reloadData]; };
+    [self presentViewController:detailView animated:YES completion:nil];
+}
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [_objects removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }
 }
 
@@ -101,13 +134,13 @@
 }
 */
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"showDetail"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = _objects[indexPath.row];
-        [[segue destinationViewController] setDetailItem:object];
-    }
-}
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    if ([[segue identifier] isEqualToString:@"showDetail"]) {
+//        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+//        NSDate *object = _objects[indexPath.row];
+//        [[segue destinationViewController] setDetailItem:object];
+//    }
+//}
 
 @end

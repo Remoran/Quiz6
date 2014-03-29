@@ -7,6 +7,7 @@
 //
 
 #import "Quiz6DetailViewController.h"
+#import "Task.h"
 
 @interface Quiz6DetailViewController ()
 - (void)configureView;
@@ -31,7 +32,10 @@
     // Update the user interface for the detail item.
 
     if (self.detailItem) {
-        self.detailDescriptionLabel.text = [self.detailItem description];
+        self.nameBox.text = self.detailItem.taskName;
+        self.urgencySlider.value = self.detailItem.urgency;
+        self.dueDatePicker.date = self.detailItem.dueDate;
+        self.urgencyLabel.text = [NSString stringWithFormat:@"Urgency: %.0f", [self.urgencySlider value]];
     }
 }
 
@@ -46,6 +50,26 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)saveTask:(id)sender
+{
+    self.detailItem.taskName = [self.nameBox text];
+    self.detailItem.urgency = [self.urgencySlider value];
+    self.detailItem.dueDate = [self.dueDatePicker date];
+    
+    [self dismissViewControllerAnimated:YES completion:self.dismissBlock];
+}
+
+- (IBAction)urgencyChanged:(id)sender
+{
+    self.urgencyLabel.text = [NSString stringWithFormat:@"Urgency: %.0f", [self.urgencySlider value]];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self.nameBox resignFirstResponder];
+    return YES;
 }
 
 @end

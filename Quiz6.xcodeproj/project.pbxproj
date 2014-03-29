@@ -22,6 +22,7 @@
 		943C9B4118E6620100A669BF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 943C9B2018E6620100A669BF /* UIKit.framework */; };
 		943C9B4918E6620100A669BF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 943C9B4718E6620100A669BF /* InfoPlist.strings */; };
 		943C9B4B18E6620100A669BF /* Quiz6Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 943C9B4A18E6620100A669BF /* Quiz6Tests.m */; };
+		943C9B5618E6631E00A669BF /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 943C9B5518E6631E00A669BF /* Task.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,8 @@
 		943C9B4618E6620100A669BF /* Quiz6Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Quiz6Tests-Info.plist"; sourceTree = "<group>"; };
 		943C9B4818E6620100A669BF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		943C9B4A18E6620100A669BF /* Quiz6Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Quiz6Tests.m; sourceTree = "<group>"; };
+		943C9B5418E6631E00A669BF /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
+		943C9B5518E6631E00A669BF /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +125,8 @@
 				943C9B3218E6620100A669BF /* Quiz6MasterViewController.m */,
 				943C9B3418E6620100A669BF /* Quiz6DetailViewController.h */,
 				943C9B3518E6620100A669BF /* Quiz6DetailViewController.m */,
+				943C9B5418E6631E00A669BF /* Task.h */,
+				943C9B5518E6631E00A669BF /* Task.m */,
 				943C9B3718E6620100A669BF /* Images.xcassets */,
 				943C9B2318E6620100A669BF /* Supporting Files */,
 			);
@@ -255,6 +260,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				943C9B5618E6631E00A669BF /* Task.m in Sources */,
 				943C9B3318E6620100A669BF /* Quiz6MasterViewController.m in Sources */,
 				943C9B2D18E6620100A669BF /* Quiz6AppDelegate.m in Sources */,
 				943C9B2918E6620100A669BF /* main.m in Sources */,
